@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+.venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Dataset
+dataset/
+
+# Trained models
+models/*.pkl
+
+# Database
+database/*.db
+
+# Environment files
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
