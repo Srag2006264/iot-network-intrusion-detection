@@ -1,0 +1,536 @@
+{
+    "project": "IoT Network Intrusion Detection and Security Monitoring System",
+    "dataset": "N-BaIoT",
+    "task": "Binary classification",
+    "label_mapping": {
+        "0": "Normal",
+        "1": "Attack"
+    },
+    "dataset_split": {
+        "test_samples": 17983,
+        "test_normal": 8079,
+        "test_attack": 9904
+    },
+    "model": {
+        "algorithm": "Random Forest",
+        "n_estimators": 200,
+        "random_state": 42,
+        "n_features": 115,
+        "classes": [
+            0,
+            1
+        ],
+        "predict_proba_supported": true
+    },
+    "metrics": {
+        "accuracy": 0.9998887838514152,
+        "precision_attack": 0.9998990306946688,
+        "recall_attack": 0.9998990306946688,
+        "f1_score_attack": 0.9998990306946688
+    },
+    "classification_report": {
+        "Normal": {
+            "precision": 0.9998762223047407,
+            "recall": 0.9998762223047407,
+            "f1-score": 0.9998762223047407,
+            "support": 8079.0
+        },
+        "Attack": {
+            "precision": 0.9998990306946688,
+            "recall": 0.9998990306946688,
+            "f1-score": 0.9998990306946688,
+            "support": 9904.0
+        },
+        "accuracy": 0.9998887838514152,
+        "macro avg": {
+            "precision": 0.9998876264997048,
+            "recall": 0.9998876264997048,
+            "f1-score": 0.9998876264997048,
+            "support": 17983.0
+        },
+        "weighted avg": {
+            "precision": 0.9998887838514152,
+            "recall": 0.9998887838514152,
+            "f1-score": 0.9998887838514152,
+            "support": 17983.0
+        }
+    },
+    "confusion_matrix": {
+        "matrix": [
+            [
+                8078,
+                1
+            ],
+            [
+                1,
+                9903
+            ]
+        ],
+        "true_normal": 8078,
+        "false_attack": 1,
+        "false_normal": 1,
+        "true_attack": 9903
+    },
+    "feature_importance": [
+        {
+            "feature": "HH_jit_L0.01_mean",
+            "importance": 0.10442100447395636
+        },
+        {
+            "feature": "HpHp_L0.1_weight",
+            "importance": 0.07942840252872807
+        },
+        {
+            "feature": "H_L0.01_weight",
+            "importance": 0.05929977234514165
+        },
+        {
+            "feature": "MI_dir_L0.1_weight",
+            "importance": 0.0592872286120691
+        },
+        {
+            "feature": "H_L0.1_weight",
+            "importance": 0.05757937335092513
+        },
+        {
+            "feature": "HpHp_L0.01_weight",
+            "importance": 0.05557591414549511
+        },
+        {
+            "feature": "MI_dir_L0.01_weight",
+            "importance": 0.052445592359982494
+        },
+        {
+            "feature": "MI_dir_L5_weight",
+            "importance": 0.034229337804876143
+        },
+        {
+            "feature": "H_L5_weight",
+            "importance": 0.03188145525252935
+        },
+        {
+            "feature": "H_L3_weight",
+            "importance": 0.03181163123301589
+        },
+        {
+            "feature": "HH_L0.01_magnitude",
+            "importance": 0.029267466582206244
+        },
+        {
+            "feature": "MI_dir_L1_weight",
+            "importance": 0.026708359126160736
+        },
+        {
+            "feature": "H_L0.01_mean",
+            "importance": 0.023489235760425244
+        },
+        {
+            "feature": "H_L1_weight",
+            "importance": 0.023097221267513453
+        },
+        {
+            "feature": "MI_dir_L3_weight",
+            "importance": 0.021976236467834535
+        },
+        {
+            "feature": "HH_jit_L5_mean",
+            "importance": 0.01865249118388692
+        },
+        {
+            "feature": "HH_L0.01_mean",
+            "importance": 0.016989524630622744
+        },
+        {
+            "feature": "HH_L0.1_magnitude",
+            "importance": 0.016700828447443708
+        },
+        {
+            "feature": "HpHp_L0.01_std",
+            "importance": 0.01631549802606265
+        },
+        {
+            "feature": "HH_jit_L0.1_mean",
+            "importance": 0.01540931841732162
+        },
+        {
+            "feature": "HH_jit_L1_mean",
+            "importance": 0.014737781191893295
+        },
+        {
+            "feature": "HH_jit_L3_mean",
+            "importance": 0.014486913168938671
+        },
+        {
+            "feature": "HpHp_L3_magnitude",
+            "importance": 0.013034409749395093
+        },
+        {
+            "feature": "H_L0.1_mean",
+            "importance": 0.010886264197035872
+        },
+        {
+            "feature": "HH_L3_magnitude",
+            "importance": 0.00946746848708239
+        },
+        {
+            "feature": "MI_dir_L0.1_variance",
+            "importance": 0.00929961328669815
+        },
+        {
+            "feature": "HpHp_L0.1_magnitude",
+            "importance": 0.009164643101350988
+        },
+        {
+            "feature": "MI_dir_L0.01_mean",
+            "importance": 0.008897183364804107
+        },
+        {
+            "feature": "HH_L0.1_weight",
+            "importance": 0.008624356231280708
+        },
+        {
+            "feature": "HH_jit_L0.01_weight",
+            "importance": 0.00842849736703896
+        },
+        {
+            "feature": "MI_dir_L1_mean",
+            "importance": 0.008327816981698159
+        },
+        {
+            "feature": "MI_dir_L0.1_mean",
+            "importance": 0.007997687666055074
+        },
+        {
+            "feature": "H_L0.1_variance",
+            "importance": 0.0076652342041844
+        },
+        {
+            "feature": "HpHp_L1_magnitude",
+            "importance": 0.007656344563152061
+        },
+        {
+            "feature": "HpHp_L0.01_magnitude",
+            "importance": 0.006897755209746449
+        },
+        {
+            "feature": "HH_L0.1_mean",
+            "importance": 0.005674996804103006
+        },
+        {
+            "feature": "H_L0.01_variance",
+            "importance": 0.0054570390414093815
+        },
+        {
+            "feature": "HH_jit_L0.1_weight",
+            "importance": 0.005284418067960983
+        },
+        {
+            "feature": "MI_dir_L0.01_variance",
+            "importance": 0.0051271776676930884
+        },
+        {
+            "feature": "HpHp_L5_magnitude",
+            "importance": 0.0043023600742135935
+        },
+        {
+            "feature": "HH_jit_L0.01_variance",
+            "importance": 0.003850588071860204
+        },
+        {
+            "feature": "H_L1_mean",
+            "importance": 0.0036739867524923303
+        },
+        {
+            "feature": "MI_dir_L5_variance",
+            "importance": 0.0034294109168349902
+        },
+        {
+            "feature": "HH_L0.01_weight",
+            "importance": 0.0033705484822982167
+        },
+        {
+            "feature": "HH_jit_L3_weight",
+            "importance": 0.0033638860256812605
+        },
+        {
+            "feature": "H_L1_variance",
+            "importance": 0.0031542240284217083
+        },
+        {
+            "feature": "H_L3_variance",
+            "importance": 0.0030049681828637946
+        },
+        {
+            "feature": "MI_dir_L3_variance",
+            "importance": 0.002923612948366035
+        },
+        {
+            "feature": "HH_jit_L5_weight",
+            "importance": 0.0028275095946533628
+        },
+        {
+            "feature": "MI_dir_L1_variance",
+            "importance": 0.0026086165218679775
+        },
+        {
+            "feature": "HpHp_L1_mean",
+            "importance": 0.002306999059601369
+        },
+        {
+            "feature": "HH_L1_magnitude",
+            "importance": 0.00221332017449331
+        },
+        {
+            "feature": "HH_L5_weight",
+            "importance": 0.002039767675433417
+        },
+        {
+            "feature": "HH_L5_magnitude",
+            "importance": 0.0018040252303652532
+        },
+        {
+            "feature": "H_L5_variance",
+            "importance": 0.0016906988119023243
+        },
+        {
+            "feature": "HH_L0.1_radius",
+            "importance": 0.0015591250023091574
+        },
+        {
+            "feature": "HH_L0.01_radius",
+            "importance": 0.00131567722911202
+        },
+        {
+            "feature": "HH_L0.01_pcc",
+            "importance": 0.0012450915550558806
+        },
+        {
+            "feature": "HpHp_L1_weight",
+            "importance": 0.0012158315489778984
+        },
+        {
+            "feature": "HH_L0.01_covariance",
+            "importance": 0.0011493968005579103
+        },
+        {
+            "feature": "HH_jit_L0.1_variance",
+            "importance": 0.0006603992134986528
+        },
+        {
+            "feature": "HH_L1_weight",
+            "importance": 0.0006233682902214352
+        },
+        {
+            "feature": "HH_L0.1_std",
+            "importance": 0.0006059774068564684
+        },
+        {
+            "feature": "HH_L0.01_std",
+            "importance": 0.00047606259583196837
+        },
+        {
+            "feature": "HH_L0.1_covariance",
+            "importance": 0.000284649827352245
+        },
+        {
+            "feature": "HH_L0.1_pcc",
+            "importance": 0.00026064084308955853
+        },
+        {
+            "feature": "HH_L1_pcc",
+            "importance": 0.00026001044379935135
+        },
+        {
+            "feature": "HH_jit_L3_variance",
+            "importance": 0.0002517157752939587
+        },
+        {
+            "feature": "HH_jit_L5_variance",
+            "importance": 0.000249180242158529
+        },
+        {
+            "feature": "HpHp_L3_mean",
+            "importance": 0.00022094279136353694
+        },
+        {
+            "feature": "HpHp_L1_std",
+            "importance": 0.00019439037548215813
+        },
+        {
+            "feature": "HH_L3_weight",
+            "importance": 0.00014647033864009012
+        },
+        {
+            "feature": "HpHp_L0.1_std",
+            "importance": 0.00013520531850882278
+        },
+        {
+            "feature": "HH_L1_std",
+            "importance": 0.0001194575011341608
+        },
+        {
+            "feature": "HpHp_L0.01_radius",
+            "importance": 0.00011255491814985159
+        },
+        {
+            "feature": "HH_L3_mean",
+            "importance": 7.789633747685912e-05
+        },
+        {
+            "feature": "HpHp_L1_radius",
+            "importance": 7.393688599407126e-05
+        },
+        {
+            "feature": "HpHp_L0.1_radius",
+            "importance": 6.907032406976736e-05
+        },
+        {
+            "feature": "HpHp_L0.01_covariance",
+            "importance": 5.572521984148102e-05
+        },
+        {
+            "feature": "H_L5_mean",
+            "importance": 5.298518755944271e-05
+        },
+        {
+            "feature": "HpHp_L5_std",
+            "importance": 4.991189987439186e-05
+        },
+        {
+            "feature": "HH_L1_radius",
+            "importance": 4.641398536143649e-05
+        },
+        {
+            "feature": "HH_L1_covariance",
+            "importance": 3.083807007066409e-05
+        },
+        {
+            "feature": "HH_L3_radius",
+            "importance": 2.9360468561180405e-05
+        },
+        {
+            "feature": "HpHp_L3_std",
+            "importance": 2.9134967220687354e-05
+        },
+        {
+            "feature": "HH_L1_mean",
+            "importance": 1.9416377581882456e-05
+        },
+        {
+            "feature": "MI_dir_L3_mean",
+            "importance": 1.7782087986783227e-05
+        },
+        {
+            "feature": "HH_jit_L1_variance",
+            "importance": 1.7168052890643016e-05
+        },
+        {
+            "feature": "MI_dir_L5_mean",
+            "importance": 1.6676030145502964e-05
+        },
+        {
+            "feature": "H_L3_mean",
+            "importance": 1.2896056989865133e-05
+        },
+        {
+            "feature": "HpHp_L0.01_mean",
+            "importance": 1.094413366240401e-05
+        },
+        {
+            "feature": "HpHp_L5_mean",
+            "importance": 1.0212246911408537e-05
+        },
+        {
+            "feature": "HpHp_L0.1_mean",
+            "importance": 8.899895795294547e-06
+        },
+        {
+            "feature": "HH_L5_mean",
+            "importance": 7.01210600340991e-06
+        },
+        {
+            "feature": "HH_L5_std",
+            "importance": 5.905658644419627e-06
+        },
+        {
+            "feature": "HH_L3_pcc",
+            "importance": 5.567437216891199e-06
+        },
+        {
+            "feature": "HH_L3_std",
+            "importance": 4.148191080581673e-06
+        },
+        {
+            "feature": "HpHp_L5_radius",
+            "importance": 3.1161070558053542e-06
+        },
+        {
+            "feature": "HpHp_L3_radius",
+            "importance": 3.0911497170666714e-06
+        },
+        {
+            "feature": "HH_jit_L1_weight",
+            "importance": 1.9930541772947515e-06
+        },
+        {
+            "feature": "HH_L5_covariance",
+            "importance": 1.9440648168411677e-06
+        },
+        {
+            "feature": "HH_L5_radius",
+            "importance": 1.426630734042559e-06
+        },
+        {
+            "feature": "HH_L3_covariance",
+            "importance": 1.1141642255178084e-06
+        },
+        {
+            "feature": "HpHp_L5_pcc",
+            "importance": 9.61703256137534e-07
+        },
+        {
+            "feature": "HpHp_L5_weight",
+            "importance": 8.307317137024415e-07
+        },
+        {
+            "feature": "HpHp_L3_pcc",
+            "importance": 2.808883458007028e-07
+        },
+        {
+            "feature": "HpHp_L5_covariance",
+            "importance": 2.8063722745109407e-07
+        },
+        {
+            "feature": "HH_L5_pcc",
+            "importance": 2.804757830205208e-07
+        },
+        {
+            "feature": "HpHp_L1_pcc",
+            "importance": 2.802649905356266e-07
+        },
+        {
+            "feature": "HpHp_L1_covariance",
+            "importance": 2.451911924862433e-07
+        },
+        {
+            "feature": "HpHp_L0.1_pcc",
+            "importance": 6.22814620544954e-08
+        },
+        {
+            "feature": "HpHp_L3_covariance",
+            "importance": 2.8097902498658348e-08
+        },
+        {
+            "feature": "HpHp_L3_weight",
+            "importance": 0.0
+        },
+        {
+            "feature": "HpHp_L0.1_covariance",
+            "importance": 0.0
+        },
+        {
+            "feature": "HpHp_L0.01_pcc",
+            "importance": 0.0
+        }
+    ]
+}
