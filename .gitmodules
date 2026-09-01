@@ -1,0 +1,3 @@
+[submodule "external/kitsune"]
+	path = external/kitsune
+	url = https://github.com/ymirsky/Kitsune-py.git
