@@ -11,7 +11,7 @@ Architecture:
        N-BaIoT / Kitsune
             |
             v
-       115 Features
+        115 Features
             |
             v
        Random Forest
@@ -26,10 +26,10 @@ Architecture:
             +--------+---------+
                      |
                      v
-                  SQLite
+                   SQLite
                      |
                      v
-               Streamlit UI
+                Streamlit UI
 """
 
 from __future__ import annotations
@@ -169,13 +169,66 @@ class SecurityDashboard:
             return str(timestamp)
 
     @staticmethod
-    def format_probability(probability: float | None) -> str:
+    def format_probability(
+        probability: float | None,
+    ) -> str:
         """Convert probability to percentage text."""
 
         if probability is None:
             return "N/A"
 
         return f"{probability * 100:.2f}%"
+
+    @staticmethod
+    def get_confidence_assessment(
+        prediction: PredictionResult,
+    ) -> str:
+        """Return a human-readable interpretation of model confidence.
+
+        This does NOT change the Random Forest prediction.
+
+        It only provides an additional dashboard interpretation.
+        """
+
+        probability = prediction.probability
+
+        if probability is None:
+            return "Unknown"
+
+        prediction_name = prediction.prediction.lower()
+
+        if prediction_name == "normal":
+            if probability >= 0.80:
+                return "High-confidence Normal"
+
+            return "Normal / Borderline"
+
+        if prediction_name == "attack":
+            if probability >= 0.80:
+                return "High-confidence Attack"
+
+            return "Borderline Attack"
+
+        return "Unknown"
+
+    @staticmethod
+    def get_confidence_level(
+        prediction: PredictionResult,
+    ) -> str:
+        """Return a compact confidence category."""
+
+        probability = prediction.probability
+
+        if probability is None:
+            return "Unknown"
+
+        if probability >= 0.80:
+            return "High"
+
+        if probability >= 0.50:
+            return "Medium"
+
+        return "Low"
 
     # -----------------------------------------------------------------------
     # Sidebar
@@ -218,6 +271,19 @@ class SecurityDashboard:
             st.write("**Classifier**")
             st.write("Random Forest")
 
+            st.divider()
+
+            st.caption("Confidence Interpretation")
+
+            st.write("**≥ 80%**")
+            st.write("High confidence")
+
+            st.write("**50% – < 80%**")
+            st.write("Medium / borderline")
+
+            st.write("**< 50%**")
+            st.write("Low confidence")
+
     # -----------------------------------------------------------------------
     # Header
     # -----------------------------------------------------------------------
@@ -236,7 +302,10 @@ class SecurityDashboard:
     # Overview
     # -----------------------------------------------------------------------
 
-    def render_overview(self, summary: dict[str, Any]) -> None:
+    def render_overview(
+        self,
+        summary: dict[str, Any],
+    ) -> None:
         """Render overview metrics."""
 
         st.header("📊 Detection Overview")
@@ -277,10 +346,15 @@ class SecurityDashboard:
         # Security status
         # -------------------------------------------------------------------
 
-        if summary["attack_count"] > 0:
+        if summary["alert_count"] > 0:
             st.error(
-                f"🚨 {summary['attack_count']} attack prediction(s) "
-                f"detected in recorded traffic."
+                f"🚨 {summary['alert_count']} security alert(s) "
+                f"recorded."
+            )
+        elif summary["attack_count"] > 0:
+            st.warning(
+                f"⚠️ {summary['attack_count']} attack prediction(s) "
+                f"detected."
             )
         else:
             st.success(
@@ -355,6 +429,12 @@ class SecurityDashboard:
                     "Confidence": self.format_probability(
                         prediction.probability
                     ),
+                    "Confidence Level": self.get_confidence_level(
+                        prediction
+                    ),
+                    "Assessment": self.get_confidence_assessment(
+                        prediction
+                    ),
                     "Model": prediction.model_name,
                     "Source": prediction.source,
                 }
@@ -395,11 +475,34 @@ class SecurityDashboard:
                 alert.probability
             )
 
-            st.error(
-                f"🚨 ATTACK DETECTED  |  "
-                f"Confidence: {probability}  |  "
-                f"Status: {alert.status}"
-            )
+            # ---------------------------------------------------------------
+            # Determine alert confidence category
+            # ---------------------------------------------------------------
+
+            if alert.probability is None:
+                confidence_level = "Unknown"
+            elif alert.probability >= 0.80:
+                confidence_level = "High"
+            elif alert.probability >= 0.50:
+                confidence_level = "Medium / Borderline"
+            else:
+                confidence_level = "Low"
+
+            if confidence_level == "High":
+                st.error(
+                    f"🚨 ATTACK DETECTED | "
+                    f"Confidence: {probability} | "
+                    f"Severity: High | "
+                    f"Status: {alert.status}"
+                )
+
+            else:
+                st.warning(
+                    f"⚠️ ATTACK PREDICTION | "
+                    f"Confidence: {probability} | "
+                    f"Severity: {confidence_level} | "
+                    f"Status: {alert.status}"
+                )
 
             alert_rows = [
                 {
@@ -407,6 +510,7 @@ class SecurityDashboard:
                     "Flow / Packet ID": alert.flow_id,
                     "Prediction": alert.prediction,
                     "Confidence": probability,
+                    "Confidence Level": confidence_level,
                     "Time": self.format_timestamp(
                         alert.timestamp
                     ),
@@ -504,6 +608,26 @@ class SecurityDashboard:
             "Random Forest → Prediction → Alert → SQLite"
         )
 
+        st.divider()
+
+        st.subheader("Detection Confidence")
+
+        st.write(
+            """
+            The Random Forest produces the primary binary prediction:
+            **Normal** or **Attack**.
+
+            The dashboard additionally interprets the model probability:
+
+            - **≥ 80%** → High confidence
+            - **50% – < 80%** → Medium / borderline confidence
+            - **< 50%** → Low confidence
+
+            This interpretation does not modify the trained model's
+            prediction.
+            """
+        )
+
     # -----------------------------------------------------------------------
     # Main render
     # -----------------------------------------------------------------------
@@ -561,6 +685,7 @@ def main() -> None:
     """Application entry point."""
 
     dashboard = SecurityDashboard()
+
     dashboard.render()
 
 
