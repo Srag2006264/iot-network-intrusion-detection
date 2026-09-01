@@ -26,7 +26,7 @@ import numpy as np
 if not hasattr(np, "Inf"):
     np.Inf = np.inf  # type: ignore[attr-defined]
 
-from src.core.contracts import PacketRecord, GenericFeatureRecord
+from src.core.contracts import GenericFeatureRecord, PacketRecord
 
 
 # ---------------------------------------------------------------------------
@@ -76,6 +76,7 @@ class NBAIoTFeatureExtractor:
         # --------------------------------------------------------------
         # MI_dir: 5 lambdas × 3 statistics = 15
         # --------------------------------------------------------------
+
         for lam in lambdas:
             names.extend(
                 [
@@ -88,6 +89,7 @@ class NBAIoTFeatureExtractor:
         # --------------------------------------------------------------
         # H: 5 lambdas × 3 statistics = 15
         # --------------------------------------------------------------
+
         for lam in lambdas:
             names.extend(
                 [
@@ -100,6 +102,7 @@ class NBAIoTFeatureExtractor:
         # --------------------------------------------------------------
         # HH: 5 lambdas × 7 statistics = 35
         # --------------------------------------------------------------
+
         for lam in lambdas:
             names.extend(
                 [
@@ -116,6 +119,7 @@ class NBAIoTFeatureExtractor:
         # --------------------------------------------------------------
         # HH_jit: 5 lambdas × 3 statistics = 15
         # --------------------------------------------------------------
+
         for lam in lambdas:
             names.extend(
                 [
@@ -128,6 +132,7 @@ class NBAIoTFeatureExtractor:
         # --------------------------------------------------------------
         # HpHp: 5 lambdas × 7 statistics = 35
         # --------------------------------------------------------------
+
         for lam in lambdas:
             names.extend(
                 [
@@ -184,6 +189,20 @@ class NBAIoTFeatureExtractor:
             return 1
 
         return 0
+
+    # ------------------------------------------------------------------
+    # Packet identity
+    # ------------------------------------------------------------------
+
+    @staticmethod
+    def _packet_id(packet: PacketRecord) -> str:
+        """Return a deterministic identifier for this packet.
+
+        PacketRecord currently has no packet_id field, so the timestamp
+        is used as the packet-level identifier.
+        """
+
+        return f"packet-{float(packet.timestamp)}"
 
     # ------------------------------------------------------------------
     # Feature extraction
@@ -308,10 +327,14 @@ class NBAIoTFeatureExtractor:
 
         features = self.extract(packet)
 
+        packet_id = self._packet_id(packet)
+
         return GenericFeatureRecord(
             feature_version=self.FEATURE_VERSION,
             features=features,
             metadata={
+                "flow_id": packet_id,
+                "packet_id": packet_id,
                 "timestamp": float(packet.timestamp),
                 "src_ip": packet.src_ip,
                 "dst_ip": packet.dst_ip,
